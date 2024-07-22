@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}Secret{% endblock %}
+
+{% block content %}
+<h1 class="display-1">{{user.username}}'s information</h1>
+<h5 class="py-2">First Name: {{user.first_name}}</h5>
+<h5 class="py-2">Last Name: {{user.last_name}}</h5>
+<h5 class="py-2">Email: {{user.email}}</h5>
+<h5 class="py-2">ID: {{user.id}}</h5>
+<a href="/users/{{ user.username }}/feedback/add" class="btn btn-success my-3">Add New Feedback</a>
+<form action="/users/{{ user.username }}/delete" method="post" class="d-inline">
+    <button type="submit" class="btn btn-danger mx-1">Delete User</button>
+</form>
+    {% for feedback in feedbacks %}
+    <div class="container py-3 my-2 border border-info">
+        <p>Title: {{ feedback.title }}</p>
+        <p>Content: {{ feedback.content }}</p>
+        <form action="/feedback/{{ feedback.id }}/edit" class="d-inline">
+            <button type="submit" class="btn btn-info mx-1">Update Feedback</button>
+        </form>
+        <form action="/feedback/{{ feedback.id }}/delete" method="post" class="d-inline">
+            <button type="submit" class="btn btn-danger mx-1">Delete Feedback</button>
+        </form>
+    </div>
+    {% endfor %}
+{% endblock %}
